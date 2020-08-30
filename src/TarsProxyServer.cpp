@@ -20,6 +20,7 @@ void TarsProxyServer::initialize()
         exit(1);
     }
 
+    // 添加协议解析器
     addServantProtocol(ServerConfig::Application + "." + ServerConfig::ServerName + ".TarsProxyObj", &tars::AppProtocol::parse);
 
     TARS_ADD_ADMIN_CMD_NORMAL("loadProxyConf", TarsProxyServer::cmdLoadProxyConf);
