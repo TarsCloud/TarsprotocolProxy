@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(TarsProxyServer)
+project(TarsprotocolProxy)
 
 #link_libraries(profiler)
 
-gen_server("Base" "TarsProxyServer")
+gen_server("Base" "TarsprotocolProxy")
