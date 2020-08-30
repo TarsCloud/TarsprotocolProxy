@@ -6,6 +6,7 @@ ShareConnManager::ShareConnManager()
 {
     _terminate = false;
     _tarsPingInterval = 5;
+    // 初始化请求和回包的协议
     _prot_total.requestFunc = ProxyProtocol::streamRequest;
     _prot_total.responseFunc = ProxyProtocol::totalResponse;
 }
@@ -38,6 +39,7 @@ bool ShareConnManager::initShareProxy(const map<string, string> &m, unsigned int
 
     if (_shareProxy.size() > 0 && interval != 0)
     {
+        // 对心跳频率做保护
         if (interval > 1800)
         {
             interval = 5;
@@ -85,6 +87,7 @@ void ShareConnManager::run()
 
         try
         {
+            // 根据配置，发tars_ping 请求以维持连接
             for (size_t i = 0; i < _shareProxy.size(); ++i)
             {
                 try
