@@ -8,10 +8,17 @@ using namespace std;
 
 TarsProxyServer g_app;
 
+/**
+ * 四层网关，主要两种应用场景: 
+ * 1. 作为tars协议的四层接入；
+ * 2. 跨IDC 的tars请求透明转发
+ * 除了支持基本的协议转发，还能够做被调用的服务及接口ip授权
+ */
+
 /////////////////////////////////////////////////////////////////
+// 框架自动生产的代码
 void TarsProxyServer::initialize()
 {
-    //initialize application here:
     addServant<TarsProxyImp>(ServerConfig::Application + "." + ServerConfig::ServerName + ".TarsProxyObj");
 
     if (!loadConf(true))
@@ -23,6 +30,7 @@ void TarsProxyServer::initialize()
     // 添加协议解析器
     addServantProtocol(ServerConfig::Application + "." + ServerConfig::ServerName + ".TarsProxyObj", &tars::AppProtocol::parse);
 
+    // 添加动态加载配置的命令
     TARS_ADD_ADMIN_CMD_NORMAL("loadProxyConf", TarsProxyServer::cmdLoadProxyConf);
 }
 
@@ -42,6 +50,7 @@ bool TarsProxyServer::cmdLoadProxyConf(const string &command, const string &para
     return true;
 }
 
+// 通过配置获取真实的servant名称
 string TarsProxyServer::getProxyObj(const string &servant, bool &hasProxy)
 {
     hasProxy = false;
@@ -57,6 +66,7 @@ string TarsProxyServer::getProxyObj(const string &servant, bool &hasProxy)
     return servant;
 }
 
+// 控制 ip 白名单
 bool TarsProxyServer::checkAuth(const string &ip, const string &obj, const string &func)
 {
     TC_ThreadRLock r(_confRWLock);
@@ -91,6 +101,7 @@ bool TarsProxyServer::checkAuth(const string &ip, const string &obj, const strin
         }
     }
 
+    // 可以控制到 obj + func 级别
     it = _authList.find(obj + ":" + func);
     if (it != _authList.end())
     {
@@ -105,6 +116,7 @@ bool TarsProxyServer::checkAuth(const string &ip, const string &obj, const strin
     return false;
 }
 
+// 加载配置
 bool TarsProxyServer::loadConf(bool isStartMain)
 {
     try
@@ -229,12 +241,15 @@ bool TarsProxyServer::loadConf(bool isStartMain)
 }
 
 /////////////////////////////////////////////////////////////////
+// 框架自动生产的代码
 void TarsProxyServer::destroyApp()
 {
-    //destroy application here:
-    //...
+    // 框架自动生成
+    // 该服务这里不需要添加业务逻辑
 }
+
 /////////////////////////////////////////////////////////////////
+// 框架自动生产的代码
 int main(int argc, char *argv[])
 {
     try

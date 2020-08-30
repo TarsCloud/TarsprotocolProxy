@@ -15,6 +15,7 @@ const string CTX_ENDPOINT = "CTX_ENDPOINT";
 const string CTX_TAFHASH_KEY = "CTX_TAFHASH_KEY";
 
 //////////////////////////////////////////////////////
+// 框架自动生产的代码
 void TarsProxyImp::initialize()
 {
     //initialize servant here:
@@ -22,6 +23,7 @@ void TarsProxyImp::initialize()
 }
 
 //////////////////////////////////////////////////////
+// 框架自动生产的代码
 void TarsProxyImp::destroy()
 {
     //destroy servant here:
@@ -29,9 +31,8 @@ void TarsProxyImp::destroy()
 }
 
 /*
-*
+* 处理连接关闭
 */
-
 int TarsProxyImp::doClose(tars::CurrentPtr current)
 {
     FDLOG("conn") << "doClose|" << current->getUId() << "|" << current->getIp() << "|" << current->getPort() << endl;
@@ -39,6 +40,9 @@ int TarsProxyImp::doClose(tars::CurrentPtr current)
     return 0;
 }
 
+/*
+* 业务请求入口 
+*/
 int TarsProxyImp::doRequest(tars::CurrentPtr current, vector<char> &response)
 {
     try
@@ -61,6 +65,7 @@ int TarsProxyImp::doRequest(tars::CurrentPtr current, vector<char> &response)
 
         RequestPacket reqPacket;
 
+        // 解析 Tars 请求包
         reqPacket.readFrom(is);
 
         TLOG_DEBUG(reqPacket.iRequestId << ", servant:" << reqPacket.sServantName << ", func:" << reqPacket.sFuncName << ", requestPacket size:" << request.size() << endl);
@@ -71,6 +76,7 @@ int TarsProxyImp::doRequest(tars::CurrentPtr current, vector<char> &response)
             return RTNCODE_REQ_PARAM_ERR;
         }
 
+        // check obj + func 的权限
         if (!g_app.checkAuth(current->getIp(), reqPacket.sServantName, reqPacket.sFuncName))
         {
             TLOG_ERROR("check auth fail!" << current->getIp() << ", " << reqPacket.sServantName << ", " << reqPacket.sFuncName << endl);
@@ -78,8 +84,10 @@ int TarsProxyImp::doRequest(tars::CurrentPtr current, vector<char> &response)
             return 0;
         }
 
+        // 设置手动回包
         current->setResponse(false);
 
+        // 如果是tars_ping 请求， 直接回包（跨IDC之间保持长连接用 tars_ping 请求）
         if (reqPacket.sFuncName == "tars_ping")
         {
             TLOG_DEBUG("tars_ping..." << endl);
@@ -107,9 +115,11 @@ int TarsProxyImp::doRequest(tars::CurrentPtr current, vector<char> &response)
         {
             bool hasProxy = false;
             string reqObj;
+            // 根据配置， 获取真实的转发地址
             reqObj = g_app.getProxyObj(reqPacket.sServantName, hasProxy);
             if (!hasProxy && reqPacket.context.find(CTX_ENDPOINT) != reqPacket.context.end() && reqPacket.context[CTX_ENDPOINT].length() > 0)
             {
+                // 可以指定调用目标服务的指定节点
                 reqObj = reqPacket.sServantName + "@" + reqPacket.context[CTX_ENDPOINT];
             }
 
@@ -128,6 +138,9 @@ int TarsProxyImp::doRequest(tars::CurrentPtr current, vector<char> &response)
     return RTNCODE_PROXY_EXCEPTION;
 }
 
+/*
+* 向后端发送异步请求
+*/
 int TarsProxyImp::doRequest_tars_async(const string &sObj, RequestPacket &reqPacket, const vector<char> &request, tars::CurrentPtr current)
 {
     try
@@ -142,6 +155,7 @@ int TarsProxyImp::doRequest_tars_async(const string &sObj, RequestPacket &reqPac
 
         TLOG_DEBUG(sObj << ", func:" << reqPacket.sFuncName << endl);
 
+        // 保存请求参数到回调对象
         shared_ptr<TarsCallbackParam> param(new TarsCallbackParam());
         param->iRequestId = reqPacket.iRequestId;
         param->sServantName = reqPacket.sServantName;
@@ -184,6 +198,7 @@ int TarsProxyImp::doRequest_tars_async(const string &sObj, RequestPacket &reqPac
         string hash_flag;
         if (reqPacket.context.find(CTX_TAFHASH_KEY) != reqPacket.context.end() && reqPacket.context[CTX_TAFHASH_KEY].length() > 0)
         {
+            // 可以指定 key 进行tars_hash 调用
             proxy->tars_hash(tars::hash<string>()(reqPacket.context[CTX_TAFHASH_KEY]))->rpc_call_async(reqPacket.iRequestId, reqPacket.sFuncName, s.c_str(), s.size(), cb);
             hash_flag = " --->hashkey:" + reqPacket.context[CTX_TAFHASH_KEY];
         }

@@ -6,6 +6,9 @@
 using namespace std;
 using namespace tars;
 
+// 异步回调类及包含参数定义
+
+// 请求参数保存
 struct TarsCallbackParam
 {
     TarsCallbackParam() : cPacketType(0) {}

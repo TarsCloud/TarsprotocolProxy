@@ -8,6 +8,7 @@
 using namespace std;
 using namespace tup;
 
+// 处理回调逻辑
 //////////////////////////////////////////////////////
 
 TarsCallback::~TarsCallback()
@@ -59,6 +60,7 @@ int TarsCallback::doResponse(const vector<char> &buffer)
             is.setBuffer(&buffer[0] + 4, buffer.size() - 4);
         }
 
+        // tup 协议
         RequestPacket req;
         req.readFrom(is);
         TLOGDEBUG("read tup RequestPacket succ." << endl);
@@ -88,46 +90,10 @@ int TarsCallback::doResponse(shared_ptr<ResponsePacket> rsp)
     {
         // 恢复回包相关参数
         rsp->iRequestId = _param->iRequestId;
-        //rsp->sServantName = _param->sServantName;
-        //rsp->sFuncName = _param->sFuncName;
-
         tars::TarsOutputStream<BufferWriter> os;
         rsp->writeTo(os);
 
         return handleResponse(os.getBuffer(), os.getLength());
-
-        // //doRSP的时候也要加上头部4个字节
-        // unsigned int bufferlength = os.getLength() + 4;
-        // bufferlength = htonl(bufferlength);
-
-        // string rspBuff;
-        // rspBuff.append((char *)&bufferlength, 4);
-        // rspBuff.append(os.getBuffer(), os.getLength());
-
-        // TLOG_DEBUG(tupRsp->sServantName << "::"
-        //                                 << tupRsp->sFuncName << ", requestid:"
-        //                                 << tupRsp->iRequestId << ", buff_length:"
-        //                                 << tupRsp->sBuffer.size() << ", length:"
-        //                                 << os.getLength() << ", ret:" << tupRsp->iRet << endl);
-
-        // if (os.getLength() > g_rspSizeLimit)
-        // {
-        //     LOG_ERROR << "packet is too big tup|" << os.getLength()
-        //               << "|" << tupRsp->sServantName
-        //               << "|" << tupRsp->sFuncName
-        //               << endl;
-        //     //reportProperty("RspSizeLimit", 1, 1);
-        // }
-
-        // if (_param->cPacketType != tars::JCEONEWAY)
-        // {
-        //     _current->sendResponse(rspBuff.c_str(), rspBuff.size());
-        //     TLOG_DEBUG("send rsp ok, size:" << rspBuff.size() << endl);
-        // }
-        // else
-        // {
-        //     TLOG_DEBUG("request is JCEONEWAY, donot send rsp." << endl);
-        // }
     }
     catch (exception &ex)
     {
@@ -165,6 +131,7 @@ int TarsCallback::handleResponse(const char *buff, size_t buffSize)
             return RTNCODE_RSP_TOOLONG;
         }
 
+        // 如果客户端请求类型是单向调用， 就不用回包 
         if (_param->cPacketType != tars::TARSONEWAY)
         {
             _current->sendResponse(rspBuff.c_str(), rspBuff.size());
