@@ -1,13 +1,6 @@
 # TarsprotocolProxy
 
-A protocol proxy which works on 4th Layer network. Support tars-tars protocol, tars-tup protocol and tars-json protocol.
-
-
-## Four layer gateway for TARS, mainly two application scenarios:
-  1. As the four layer access for TARS protocol;
-  2. Transparent forwarding for TARS requests across IDC
-
-In addition to supporting basic protocol forwarding, it also provides IP authorization for the called service and interface
+在第四层网络上工作的协议代理。支持tars-tars协议，tars-tup协议和tars-json协议。
 
 ## 四层网关，主要两种应用场景: 
   1. 作为tars协议的四层接入；
