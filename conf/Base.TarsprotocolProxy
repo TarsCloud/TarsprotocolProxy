@@ -1,0 +1,18 @@
+<tars>
+	<application>
+		<server>
+			deactivating-timeout=3000
+			openthreadcontext=0
+			threadcontextnum=10000
+			threadcontextstack=32768
+		</server>
+		<client>
+			sync-invoke-timeout=5000
+			async-invoke-timeout=20000
+			sample-rate=1000
+			max-sample-count=100
+			sendthread=1
+			recvthread=1
+		</client>
+	</application>
+</tars>
