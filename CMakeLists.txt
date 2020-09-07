@@ -13,7 +13,11 @@ else()
     include (/usr/local/tars/cpp/makefile/tars-tools.cmake)
 endif()
 
-set(TARS_WEB_HOST "172.16.8.227:3000")
+####you can: cd build; cmake .. -DTARS_WEB_HOST={your web host}
+set(TARS_WEB_HOST "" CACHE STRING "set web host")
+IF (TARS_WEB_HOST STREQUAL "")
+        set(TARS_WEB_HOST "http://tars.test.com")
+ENDIF ()
 
 include_directories(/usr/local/tars/cpp/thirdparty/include)
 link_directories(/usr/local/tars/cpp/thirdparty/lib)
