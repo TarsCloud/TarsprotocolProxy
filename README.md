@@ -4,7 +4,14 @@
 
 在第四层网络上工作的协议代理，支持 `tars-tars` 协议，`tars-tup` 协议和 `tars-json` 协议。
 
-## 应用场景
+## 目录
+
+- [应用场景](#chapter-1)
+- [原理](#chapter-2)
+- [代理配置](#chapter-3)
+- [部署](#chapter-4)
+
+## <a id='chapter-1'></a>应用场景
 
 主要有两个应用场景
 
@@ -13,15 +20,16 @@
 
 除了支持基本的协议转发，还能够做被调用的服务及接口 ip 授权。
 
-## 原理
+## <a id='chapter-2'></a>原理
 
 在第四层网络上工作，直接获取 buffer 并解析 Tars 请求包，根据请求包包体字段信息进行转发。请求包和响应包格式可以参见官方文档中的[消息格式](https://tarscloud.github.io/TarsDocs/base/tars-protocol.html#22-%E6%B6%88%E6%81%AF%E6%A0%BC%E5%BC%8F)部分。
 
-## 配置文件
+## <a id='chapter-3'></a>代理配置
 
 配置文件 `TarsprotocolProxy.conf` 用于配置代理服务，与 TARS 服务 conf 文件格式一致，采用 `xml` 风格。
 
 ### 根节点
+
 根节点为 `conf` 节点，可以配置参数 `tarsping_interval` ，用于配置心跳请求的间隔，单位为秒，`0` 表示不启用心跳，如下
 
 ```xml
@@ -35,7 +43,7 @@
 
 ### 代理配置
 
-`proxy` 节点下可以配置服务Obj的代理信息，根据配置直接转发，而不从主控获取
+`proxy` 节点下可以配置服务 Obj 的代理信息，根据配置直接转发，而不从主控获取
 
 ```xml
 <conf>
@@ -49,7 +57,7 @@
 
 ### 长连接
 
-通过 `proxy_conn` 节点可以配置需要长连接的Obj
+通过 `proxy_conn` 节点可以配置需要长连接的 Obj
 
 ```xml
 <conf>
@@ -114,7 +122,7 @@
 </conf>
 ```
 
-## 部署
+## <a id='chapter-4'></a>部署
 
 协议代理服务本质上也是一个Tars服务，因此部署过程与一般的Tars服务类似。
 
