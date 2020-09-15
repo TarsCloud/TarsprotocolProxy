@@ -8,9 +8,10 @@
 #ifndef _TarsProxyServer_H_
 #define _TarsProxyServer_H_
 
+#include <iostream>
 #include "servant/Application.h"
 #include "util/tc_thread_rwlock.h"
-#include <iostream>
+
 
 using namespace tars;
 
