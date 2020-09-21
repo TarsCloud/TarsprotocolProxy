@@ -14,12 +14,13 @@
 
 TarsProxyServer g_app;
 
-/**
- * TARS协议的四层网关，主要两种应用场景:
- * 1. 作为 TARS 协议的四层接入；
- * 2. 跨 IDC 的 TARS 请求透明转发
- * 除了支持基本的协议转发，还能够做被调用的服务及接口IP授权
- */
+//A protocol proxy that works on the 4th Layer network and supports the tars-tars protocol, tars-tup protocol, and tars-json protocol.
+//There are two main application scenarios:
+//As the four-layer access for TARS protocol;
+//Transparent forwarding for TARS requests across IDC.
+//In addition to supporting basic protocol forwarding, TarsprotocolProxy also provides IP authorization for the called service and interface.
+
+
 
 // 框架自动生产的代码
 // automatically created by framwork
