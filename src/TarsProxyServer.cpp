@@ -21,9 +21,7 @@ TarsProxyServer g_app;
 //In addition to supporting basic protocol forwarding, TarsprotocolProxy also provides IP authorization for the called service and interface.
 
 
-
-// 框架自动生产的代码
-// automatically created by framwork
+// automatically created by framework
 void TarsProxyServer::initialize() {
   addServant<TarsProxyImp>(ServerConfig::Application + "." + ServerConfig::ServerName +
                            ".TarsProxyObj");
