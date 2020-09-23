@@ -56,5 +56,4 @@ class TarsProxyServer : public Application {
 
 extern TarsProxyServer g_app;
 
-////////////////////////////////////////////
-#endif
+
