@@ -137,7 +137,6 @@ bool TarsProxyServer::loadConf(bool isStartMain) {
         vsList = conf.getDomainVector("/conf/auth");
 
         for (size_t i = 0; i < vsList.size(); i++) {
-          // struct LimitConf stLimitConf ;
           string buss = vsList[i];
           string strDomain = "/conf/auth/" + vsList[i];
           map<string, string> tmp = conf.getDomainMap(strDomain);
