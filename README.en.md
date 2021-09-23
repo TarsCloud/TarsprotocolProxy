@@ -179,7 +179,7 @@ In tab `operation -> Deploy service` of TarsWeb
 - `OBJ`: `TarsProxyObj`
 - `Protocol`: `not TARS`
 
-Click `get port` to automatically generate the port.
+Click `get port` to automatically generate the port(It is recommended to use a fixed port 8300).
 
 ![](docs/images/tars_proxy_deploy_en.png)
 
