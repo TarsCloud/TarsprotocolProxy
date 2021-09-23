@@ -122,9 +122,9 @@ int TarsCallback::handleResponse(const char *buff, size_t buffSize)
                                         << _param->iRequestId << ", rsp length:"
                                         << bufferlength << endl);
 
-        if (bufferlength > g_rspSizeLimit)
+        if (rspBuff.length() > g_rspSizeLimit)
         {
-            TLOG_ERROR("packet is too big tup|" << bufferlength
+            TLOG_ERROR("packet is too big|" << rspBuff.length()
                                                 << "|" << _param->sServantName
                                                 << "|" << _param->sFuncName
                                                 << endl);
