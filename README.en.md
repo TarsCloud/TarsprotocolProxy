@@ -2,7 +2,7 @@
 
 # TarsprotocolProxy
 
-A protocol proxy that works on the 4th Layer network and supports the tars-tars protocol, tars-tup protocol, and tars-json protocol.
+A tars protocol proxy that supports the tars-tars protocol, tars-tup protocol, and tars-json protocol.
 
 ## Table of Contents
 
@@ -14,8 +14,9 @@ A protocol proxy that works on the 4th Layer network and supports the tars-tars 
 ## <a id='chapter-1'></a>Application Scenarios
 
 There are two main application scenarios:
-  1. As the four-layer access for TARS protocol;
-  2. Transparent forwarding for TARS requests across IDC.
+
+1. Forwarding access as tars protocol;
+2. Transparent forwarding for TARS requests across IDC.
 
 In addition to supporting basic protocol forwarding, TarsprotocolProxy also provides IP authorization for the called service and interface.
 
@@ -76,7 +77,7 @@ Node `auth` can add configuration for IP authentication. In this node, you can a
 
 ```xml
 <auth>
-  # Enable IP auth with value on, disable with value off. 
+  # Enable IP auth with value on, disable with value off.
   # (Any IP can access the server in the cluster with value off, which is normally used in intranet)
   on_off=off
 
@@ -84,7 +85,7 @@ Node `auth` can add configuration for IP authentication. In this node, you can a
   # The business name here has no actual meaning, as long as it is unique.
   <test_buss_1>
     # obj = white ip
-    Test.GetSumServer.GetSumObj=124.74.236.120|124.74.236.122 
+    Test.GetSumServer.GetSumObj=124.74.236.120|124.74.236.122
   </test_buss_1>
   <news>
     News.HelloServer.HelloObj=124.74.236.11|124.74.236.12
@@ -104,7 +105,7 @@ The following is the example for a configuration file
   tarsping_interval=10
   <proxy>
     Test.SumClientServer.SumClientObj1=Test.SumClientServer.SumClientObj@tcp -h 172.16.8.147 -t 60000 -p 10032
-    Test.TestServer.TestObj=Test.TestServer.TestObj@-h 192.168.242.176 -p 8888 -t 60000 
+    Test.TestServer.TestObj=Test.TestServer.TestObj@-h 192.168.242.176 -p 8888 -t 60000
   </proxy>
   <proxy_conn>
     Test.GetSum22Server.GetSumObj = Base.TarsprotocolProxy.TarsProxyObj@tcp -h 172.16.8.115 -t 60000 -p 8888
@@ -112,7 +113,7 @@ The following is the example for a configuration file
   <auth>
     on_off=off
     <test_buss_1>
-      Test.GetSumServer.GetSumObj=124.74.236.120|124.74.236.122 
+      Test.GetSumServer.GetSumObj=124.74.236.120|124.74.236.122
     </test_buss_1>
     <news>
       News.HelloServer.HelloObj=124.74.236.11|124.74.236.12
@@ -142,6 +143,7 @@ make tar
 ### Add Template
 
 In tab `operation -> Manage Template` of TarsWeb, click `add Template`,
+
 - `Template`: Can be customized, here we fill in `Base.TarsprotocolProxy`
 - `Parent template`: `tars.default`
 - `content`: As follows
@@ -172,6 +174,7 @@ Click `OK` to generate the template.
 ### Deploy Server
 
 In tab `operation -> Deploy service` of TarsWeb
+
 - `APP`: `Base`
 - `Service name`: `TarsprotocolProxy`
 - `Service type`: `tars_cpp`
