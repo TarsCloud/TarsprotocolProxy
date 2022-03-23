@@ -1,8 +1,8 @@
 [Read in English](README.en.md)
 
-# Tars协议代理服务 TarsprotocolProxy
+# Tars 协议代理服务 TarsprotocolProxy
 
-在第四层网络上工作的协议代理，支持 `tars-tars` 协议，`tars-tup` 协议和 `tars-json` 协议。
+协议代理服务，支持 `tars-tars` 协议，`tars-tup` 协议和 `tars-json` 协议。
 
 ## 目录
 
@@ -15,8 +15,8 @@
 
 主要有两个应用场景
 
-  1. 作为 `tars` 协议的四层接入；
-  2. 跨 IDC 的 `tars` 请求透明转发。
+1. 作为 `tars` 协议的四层接入；
+2. 跨 IDC 的 `tars` 请求透明转发。
 
 除了支持基本的协议转发，还能够做被调用的服务及接口 ip 授权。
 
@@ -43,7 +43,7 @@
 
 ### 代理配置
 
-`proxy` 节点下可以配置服务 Obj 的代理信息，根据配置直接转发，而不从主控获取。主要用在网络出局，即集群内部服务通过该proxy转发调用集群外部服务。
+`proxy` 节点下可以配置服务 Obj 的代理信息，根据配置直接转发，而不从主控获取。主要用在网络出局，即集群内部服务通过该 proxy 转发调用集群外部服务。
 
 ```xml
 <conf>
@@ -83,7 +83,7 @@
   # 按业务配置，方便管理，这里业务名没有实际含义，只要不重复即可
   <test_buss_1>
     # obj = white ip
-    Test.GetSumServer.GetSumObj=124.74.236.120|124.74.236.122	
+    Test.GetSumServer.GetSumObj=124.74.236.120|124.74.236.122
   </test_buss_1>
   <news>
     News.HelloServer.HelloObj=124.74.236.11|124.74.236.12
@@ -103,7 +103,7 @@
   tarsping_interval=10
   <proxy>
     Test.SumClientServer.SumClientObj1=Test.SumClientServer.SumClientObj@tcp -h 172.16.8.147 -t 60000 -p 10032
-    Test.TestServer.TestObj=Test.TestServer.TestObj@-h 192.168.242.176 -p 8888 -t 60000 
+    Test.TestServer.TestObj=Test.TestServer.TestObj@-h 192.168.242.176 -p 8888 -t 60000
   </proxy>
   <proxy_conn>
     Test.GetSum22Server.GetSumObj = Base.TarsprotocolProxy.TarsProxyObj@tcp -h 172.16.8.115 -t 60000 -p 8888
@@ -111,7 +111,7 @@
   <auth>
     on_off=off
     <test_buss_1>
-      Test.GetSumServer.GetSumObj=124.74.236.120|124.74.236.122	
+      Test.GetSumServer.GetSumObj=124.74.236.120|124.74.236.122
     </test_buss_1>
     <news>
       News.HelloServer.HelloObj=124.74.236.11|124.74.236.12
@@ -124,7 +124,7 @@
 
 ## <a id='chapter-4'></a>部署
 
-协议代理服务本质上也是一个Tars服务，因此部署过程与一般的Tars服务类似。
+协议代理服务本质上也是一个 Tars 服务，因此部署过程与一般的 Tars 服务类似。
 
 ### 编译构建
 
@@ -142,7 +142,8 @@ make tar
 
 协议代理服务需要一些额外的配置，我们需要新增一个模板。
 
-在TarsWeb页面的 `运维管理 -> 模板管理` 中点击 `新增模板` ，弹出窗口中
+在 TarsWeb 页面的 `运维管理 -> 模板管理` 中点击 `新增模板` ，弹出窗口中
+
 - `模板` 可以自定，这里我们填写 `Base.TarsprotocolProxy`；
 - `父模板名` 选择 `tars.default`；
 - `模板内容` 中填写如下内容
@@ -172,7 +173,8 @@ make tar
 
 ### 部署服务
 
-在TarsWeb页面的 `运维管理 -> 服务部署` 中
+在 TarsWeb 页面的 `运维管理 -> 服务部署` 中
+
 - 应用名：`Base`
 - 服务名：`TarsprotocolProxy`
 - 服务类型：`tars_cpp`
@@ -188,7 +190,7 @@ make tar
 
 前面提到的配置文件，需要上传到配置中心，使服务启动时能够拉取相关的代理配置。
 
-在TarsWeb页面进入 `TarsprotocolProxy` 的服务配置，点击 `添加配置`
+在 TarsWeb 页面进入 `TarsprotocolProxy` 的服务配置，点击 `添加配置`
 
 ![](docs/images/tars_proxy_conf_center.png)
 
@@ -200,6 +202,6 @@ make tar
 
 ### 发布服务
 
-在TarsWeb页面对应服务的 `发布管理` 中上传服务发布包并发布服务，服务成功发布即Tars协议代理服务部署成功。
+在 TarsWeb 页面对应服务的 `发布管理` 中上传服务发布包并发布服务，服务成功发布即 Tars 协议代理服务部署成功。
 
 ![](docs/images/tars_proxy_publish.png)

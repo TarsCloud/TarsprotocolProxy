@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    container: tarscloud/base-compiler:v2.4
+    container: tarscloud/base-compiler
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -20,4 +20,4 @@ jobs:
       - name: make
         run: mkdir -p build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Release && make -j4
       - name: build docker
-        run: exec-build.sh tarscloud/tars.cppbase cpp build/bin/TarsprotocolProxy yaml/values.yaml latest true
+        run: exec-build-cloud.sh tarscloud/tars.cppbase cpp build/bin/TarsprotocolProxy yaml/values.yaml latest true
