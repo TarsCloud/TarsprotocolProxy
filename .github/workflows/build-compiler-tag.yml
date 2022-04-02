@@ -1,10 +1,10 @@
-name: build-tarsprotocolproxy-tag
-
+name: build-tag
 
 on:
   push:
-    branches:
-      - v*
+    tags:
+      - v* 
+      
 
 jobs:
   build:
