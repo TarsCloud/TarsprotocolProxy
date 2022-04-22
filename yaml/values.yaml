@@ -41,7 +41,7 @@ repo:
   image: tarscloud/base.protocolproxyserver
   secret: cloud-market-secret
 config:
-  - name: TarsprotocolProxy.conf
+  - name: ProtocolProxyServer.conf
     content: |
       <conf>
         #tarsping_interval=0 表示不打开跨IDC用于心跳的tars_ping请求，其他为心跳间隔，单位 秒
