@@ -18,7 +18,7 @@ TarsProxyServer g_app;
 //There are two main application scenarios:
 //As the four-layer access for TARS protocol;
 //Transparent forwarding for TARS requests across IDC.
-//In addition to supporting basic protocol forwarding, TarsprotocolProxy also provides IP authorization for the called service and interface.
+//In addition to supporting basic protocol forwarding, ProtocolProxyServer also provides IP authorization for the called service and interface.
 
 
 // automatically created by framework

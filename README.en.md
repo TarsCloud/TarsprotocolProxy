@@ -1,6 +1,6 @@
 [中文版](README.md)
 
-# TarsprotocolProxy
+# ProtocolProxyServer
 
 A tars protocol proxy that supports the tars-tars protocol, tars-tup protocol, and tars-json protocol.
 
@@ -18,7 +18,7 @@ There are two main application scenarios:
 1. Forwarding access as tars protocol;
 2. Transparent forwarding for TARS requests across IDC.
 
-In addition to supporting basic protocol forwarding, TarsprotocolProxy also provides IP authorization for the called service and interface.
+In addition to supporting basic protocol forwarding, ProtocolProxyServer also provides IP authorization for the called service and interface.
 
 ## <a id='chapter-2'></a>Principle
 
@@ -26,7 +26,7 @@ Tarsprotocol Proxy works on the 4th Layer network, which obtains the buffer dire
 
 ## <a id='chapter-3'></a>Proxy Configuration
 
-The configuration file `TarsprotocolProxy.conf` is used to configure the proxy server, which uses the `XML` style, the same as the TARS server's configuration file.
+The configuration file `ProtocolProxyServer.conf` is used to configure the proxy server, which uses the `XML` style, the same as the TARS server's configuration file.
 
 ### Root Node
 
@@ -63,7 +63,7 @@ Node `proxy_conn` can configure which `Obj` use keep-alive connection.
 <conf>
   ...
   <proxy_conn>
-    Test.GetSum22Server.GetSumObj = Base.TarsprotocolProxy.TarsProxyObj@tcp -h 172.16.8.115 -t 60000 -p 8888
+    Test.GetSum22Server.GetSumObj = Base.ProtocolProxyServer.TarsProxyObj@tcp -h 172.16.8.115 -t 60000 -p 8888
   </proxy_conn>
   ...
 </conf>
@@ -108,7 +108,7 @@ The following is the example for a configuration file
     Test.TestServer.TestObj=Test.TestServer.TestObj@-h 192.168.242.176 -p 8888 -t 60000
   </proxy>
   <proxy_conn>
-    Test.GetSum22Server.GetSumObj = Base.TarsprotocolProxy.TarsProxyObj@tcp -h 172.16.8.115 -t 60000 -p 8888
+    Test.GetSum22Server.GetSumObj = Base.ProtocolProxyServer.TarsProxyObj@tcp -h 172.16.8.115 -t 60000 -p 8888
   </proxy_conn>
   <auth>
     on_off=off
@@ -144,7 +144,7 @@ make tar
 
 In tab `operation -> Manage Template` of TarsWeb, click `add Template`,
 
-- `Template`: Can be customized, here we fill in `Base.TarsprotocolProxy`
+- `Template`: Can be customized, here we fill in `Base.ProtocolProxyServer`
 - `Parent template`: `tars.default`
 - `content`: As follows
 
@@ -176,9 +176,9 @@ Click `OK` to generate the template.
 In tab `operation -> Deploy service` of TarsWeb
 
 - `APP`: `Base`
-- `Service name`: `TarsprotocolProxy`
+- `Service name`: `ProtocolProxyServer`
 - `Service type`: `tars_cpp`
-- `Template`: `Base.TarsprotocolProxy`
+- `Template`: `Base.ProtocolProxyServer`
 - `OBJ`: `TarsProxyObj`
 - `Protocol`: `not TARS`
 
@@ -190,7 +190,7 @@ Click `get port` to automatically generate the port(It is recommended to use a f
 
 We need to upload the configuration file mentioned before, that the server can load it while starting.
 
-Go to the service configuration of `TarsprotocolProxy` in TarsWeb, and click `add configuration`
+Go to the service configuration of `ProtocolProxyServer` in TarsWeb, and click `add configuration`
 
 ![](docs/images/tars_proxy_conf_center_en.png)
 

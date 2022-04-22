@@ -1,6 +1,6 @@
 [Read in English](README.en.md)
 
-# Tars 协议代理服务 TarsprotocolProxy
+# Tars 协议代理服务 ProtocolProxyServer
 
 协议代理服务，支持 `tars-tars` 协议，`tars-tup` 协议和 `tars-json` 协议。
 
@@ -26,7 +26,7 @@
 
 ## <a id='chapter-3'></a>代理配置
 
-配置文件 `TarsprotocolProxy.conf` 用于配置代理服务，与 TARS 服务 conf 文件格式一致，采用 `xml` 风格。
+配置文件 `ProtocolProxyServer.conf` 用于配置代理服务，与 TARS 服务 conf 文件格式一致，采用 `xml` 风格。
 
 ### 根节点
 
@@ -63,7 +63,7 @@
 <conf>
   ...
   <proxy_conn>
-    Test.GetSum22Server.GetSumObj = Base.TarsprotocolProxy.TarsProxyObj@tcp -h 172.16.8.115 -t 60000 -p 8888
+    Test.GetSum22Server.GetSumObj = Base.ProtocolProxyServer.TarsProxyObj@tcp -h 172.16.8.115 -t 60000 -p 8888
   </proxy_conn>
   ...
 </conf>
@@ -106,7 +106,7 @@
     Test.TestServer.TestObj=Test.TestServer.TestObj@-h 192.168.242.176 -p 8888 -t 60000
   </proxy>
   <proxy_conn>
-    Test.GetSum22Server.GetSumObj = Base.TarsprotocolProxy.TarsProxyObj@tcp -h 172.16.8.115 -t 60000 -p 8888
+    Test.GetSum22Server.GetSumObj = Base.ProtocolProxyServer.TarsProxyObj@tcp -h 172.16.8.115 -t 60000 -p 8888
   </proxy_conn>
   <auth>
     on_off=off
@@ -144,7 +144,7 @@ make tar
 
 在 TarsWeb 页面的 `运维管理 -> 模板管理` 中点击 `新增模板` ，弹出窗口中
 
-- `模板` 可以自定，这里我们填写 `Base.TarsprotocolProxy`；
+- `模板` 可以自定，这里我们填写 `Base.ProtocolProxyServer`；
 - `父模板名` 选择 `tars.default`；
 - `模板内容` 中填写如下内容
 
@@ -176,9 +176,9 @@ make tar
 在 TarsWeb 页面的 `运维管理 -> 服务部署` 中
 
 - 应用名：`Base`
-- 服务名：`TarsprotocolProxy`
+- 服务名：`ProtocolProxyServer`
 - 服务类型：`tars_cpp`
-- 模板：`Base.TarsprotocolProxy` （上节新建的模板）
+- 模板：`Base.ProtocolProxyServer` （上节新建的模板）
 - OBJ：`TarsProxyObj`
 - 协议：`非TARS`
 
@@ -190,7 +190,7 @@ make tar
 
 前面提到的配置文件，需要上传到配置中心，使服务启动时能够拉取相关的代理配置。
 
-在 TarsWeb 页面进入 `TarsprotocolProxy` 的服务配置，点击 `添加配置`
+在 TarsWeb 页面进入 `ProtocolProxyServer` 的服务配置，点击 `添加配置`
 
 ![](docs/images/tars_proxy_conf_center.png)
 

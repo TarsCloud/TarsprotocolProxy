@@ -56,7 +56,7 @@ config:
 
         <proxy_conn>
             # 通过发 tars_ping 请求保持长连接，根据业务需求去配置，主要用在外网转发时保持连接稳定
-            Test.GetSum22Server.GetSumObj = Base.TarsprotocolProxy.TarsProxyObj@tcp -h 172.16.8.115 -t 60000 -p 8888
+            Test.GetSum22Server.GetSumObj = Base.ProtocolProxyServer.TarsProxyObj@tcp -h 172.16.8.115 -t 60000 -p 8888
         </proxy_conn>
 
         <auth>
