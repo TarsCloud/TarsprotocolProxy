@@ -24,4 +24,4 @@ jobs:
       - name: make
         run: mkdir -p build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Release && make -j4
       - name: build docker
-        run: exec-build-cloud.sh tarscloud/tars.cppbase cpp build/bin/TarsprotocolProxy yaml/values.yaml ${{ steps.get_version.outputs.VERSION }} true
+        run: exec-build-cloud.sh tarscloud/tars.cppbase cpp build/bin/ProtocolProxyServer yaml/values.yaml ${{ steps.get_version.outputs.VERSION }} true

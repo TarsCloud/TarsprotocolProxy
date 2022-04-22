@@ -4,4 +4,4 @@ project(TarsprotocolProxy)
 
 #link_libraries(profiler)
 
-gen_server("Base" "TarsprotocolProxy")
+gen_server("Base" "ProtocolProxyServer")
